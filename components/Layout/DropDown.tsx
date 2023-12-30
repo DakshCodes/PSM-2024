@@ -1,5 +1,4 @@
 import { styles } from "@/utils/styles";
-import { User } from "@clerk/nextjs/server";
 import {
   Avatar,
   Dropdown,
@@ -11,28 +10,35 @@ import Link from "next/link";
 import { GrDocumentStore } from "react-icons/gr";
 import { AiOutlineLogout } from "react-icons/ai";
 import { TbSwitchVertical } from "react-icons/tb";
-import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/auth";
+import toast from "react-hot-toast";
 
 type Props = {
-  user: User | null;
+  user: [] | null;
   setOpen: (open: boolean) => void;
   handleProfile: () => void;
-  isSellerExist?: boolean;
 };
 
-const DropDown = ({ user, setOpen, handleProfile, isSellerExist }: Props) => {
-  const { signOut } = useClerk();
+const DropDown = ({ user, setOpen, handleProfile }: Props) => {
   const router = useRouter();
+  const [auth, setAuth] = useAuth();
+
   const handleLogOut = async () => {
-    await signOut();
-    router.push("/sign-in");
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("auth");
+    toast.success("Logout Successfully");
+    router.push("/login");
   };
   return (
     <Dropdown placeholder="bottom-start" className="bg-white">
       <DropdownTrigger>
         <Avatar
-          src={user?.imageUrl}
+          src="https://i.pinimg.com/564x/24/a8/d6/24a8d67ab15d158c8190908f8bba3980.jpg"
           alt=""
           className="w-[40px] h-[40px] cursor-pointer"
         />
@@ -46,30 +52,14 @@ const DropDown = ({ user, setOpen, handleProfile, isSellerExist }: Props) => {
         >
           <div className="flex w-full items-center">
             <Avatar
-              src={user?.imageUrl}
+              src="https://i.pinimg.com/564x/24/a8/d6/24a8d67ab15d158c8190908f8bba3980.jpg"
               alt=""
-              className="w-[30px] h-[30px] cursor-pointer"
+              className="w-[40px] h-[40px] cursor-pointer"
             />
             <span className={`${styles.label} text-black text-[16px] pl-2`}>
               My Profile
             </span>
           </div>
-        </DropdownItem>
-        <DropdownItem>
-          <Link href={"/my-orders"} className="flex w-full items-center">
-            <GrDocumentStore className="text-[22px] ml-2 text-black" />
-            <span className={`${styles.label} text-black text-[16px] pl-2`}>
-              My Orders
-            </span>
-          </Link>
-        </DropdownItem>
-        <DropdownItem className={`${!isSellerExist && "hidden"}`}>
-          <Link href={"/my-shop"} className="flex w-full items-center">
-            <TbSwitchVertical className="text-2xl ml-2 text-black" />
-            <span className={`${styles.label} text-black text-[16px] pl-2`}>
-              Switching to Seller
-            </span>
-          </Link>
         </DropdownItem>
         <DropdownItem onClick={handleLogOut}>
           <div className="flex items-center w-full">

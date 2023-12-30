@@ -1,6 +1,6 @@
 import { User, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-// import prisma from "@/lib/prismaDb";
+import prisma from "@/lib/prismaDb";
 
 export async function GET(req: NextRequest) {
   try {
@@ -12,16 +12,15 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    // const shop = await prisma.shops.findUnique({
-    //   where: {
-    //     userId: user.id,
-    //   },
-    // });
+    const shop = await prisma.shops.findUnique({
+      where: {
+        userId: user.id,
+      },
+    });
 
-    return NextResponse.json({ user });
-    // return NextResponse.json({ user, shop });
+    return NextResponse.json({ user, shop });
   } catch (error) {
-    console.log("load user error", error);
+    console.error("Error occurred:", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

@@ -20,20 +20,20 @@ const BestSellers = () => {
   const [shopsData, setshopsData] = useState<ShopData[]>();
   const [loading, setloading] = useState(false);
 
-  // const fetchShopsData = async () => {
-  //   try {
-  //     const response = await fetch(`/api/get-top-sellers`);
-  //     const data = await response.json();
-  //     setshopsData(data);
-  //     setloading(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //     setloading(false);
-  //   }
-  // };
+  const fetchShopsData = async () => {
+    try {
+      const response = await fetch(`/api/get-top-sellers`);
+      const data = await response.json();
+      setshopsData(data);
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+      setloading(false);
+    }
+  };
 
   useEffect(() => {
-    // fetchShopsData();
+    fetchShopsData();
   }, []);
 
   return (
@@ -49,10 +49,9 @@ const BestSellers = () => {
             </div>
           ))
           :
-          <SellerCard  loading={loading} />
-          // shopsData?.map((item: any) => (
-          //     <SellerCard item={item} key={item.id} loading={loading} />
-          //   ))
+          shopsData?.map((item: any) => (
+              <SellerCard item={item} key={item.id} loading={loading} />
+            ))
         }
       </div>
     </div>

@@ -1,5 +1,4 @@
 import { styles } from "@/utils/styles";
-import { useAuth } from "@clerk/nextjs";
 import {
   Button,
   Input,
@@ -14,6 +13,9 @@ import React, { ChangeEvent, DragEvent, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
+import { useAuth } from "@/context/auth";
+import { useLoading } from "@/context/Loading";
+import Loader from "../loader/Loader";
 
 type Props = {};
 
@@ -55,9 +57,9 @@ const UploadPrompt = (props: Props) => {
     tags: "",
   });
   const [dragging, setDragging] = useState<Boolean>(false);
-  const { userId } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useLoading();
   const [category, setCategory] = useState<Selection>(new Set([]));
+   const [auth, setAuth] = useAuth();
 
   const handleImageFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -152,16 +154,16 @@ const UploadPrompt = (props: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    setLoading(true);
     const categoryString = Array.from(category).join(",");
     await axios
       .post("/api/upload-prompt", {
         ...promptData,
         category: categoryString,
-        sellerId: userId,
+        sellerId: auth?.user?.id,
       })
       .then((res) => {
-        setIsLoading(false);
+        setLoading(false);
         toast.success("Prompt uploaded successfully");
         setPromptData({
           name: "",
@@ -176,7 +178,7 @@ const UploadPrompt = (props: Props) => {
         redirect("/shop/prompts");
       })
       .catch((error) => {
-        setIsLoading(false);
+        setLoading(false);
         console.log(error);
         // toast.error(error.data.message);
       });
@@ -186,7 +188,12 @@ const UploadPrompt = (props: Props) => {
     setCategory(new Set([e.target.value]));
   };
 
-  return (
+  return (<>
+    {
+        loading && (
+          <Loader />
+        )
+      }
     <div>
       <h1 className={`${styles.heading} text-center py-5`}>
         Upload Your Prompt
@@ -312,9 +319,8 @@ const UploadPrompt = (props: Props) => {
           />
           <label
             htmlFor="file"
-            className={`w-full rounded-md min-h-[15vh] border-white p-3 border  flex items-center justify-center ${
-              dragging ? "bg-blue-500" : "bg-transparent"
-            }`}
+            className={`w-full rounded-md min-h-[15vh] border-white p-3 border  flex items-center justify-center ${dragging ? "bg-blue-500" : "bg-transparent"
+              }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleImageDrop}
@@ -353,9 +359,8 @@ const UploadPrompt = (props: Props) => {
           />
           <label
             htmlFor="attachment"
-            className={`w-full rounded-md min-h-[15vh] border-white p-3 border  flex items-center justify-center ${
-              dragging ? "bg-blue-500" : "bg-transparent"
-            }`}
+            className={`w-full rounded-md min-h-[15vh] border-white p-3 border  flex items-center justify-center ${dragging ? "bg-blue-500" : "bg-transparent"
+              }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleAttachmentDrop}
@@ -382,8 +387,8 @@ const UploadPrompt = (props: Props) => {
             color="primary"
             className={`${styles.button}`}
             type="submit"
-            disabled={isLoading}
-            disableAnimation={isLoading}
+            disabled={loading}
+            disableAnimation={loading}
           >
             Upload your prompt
           </Button>
@@ -392,6 +397,8 @@ const UploadPrompt = (props: Props) => {
         <br />
       </form>
     </div>
+  </>
+
   );
 };
 

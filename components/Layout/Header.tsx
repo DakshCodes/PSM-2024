@@ -5,22 +5,24 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { FaBars } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
-import { UserProfile } from "@clerk/nextjs";
-import { User } from "@clerk/nextjs/server";
+// import { UserProfile } from "@clerk/nextjs";
+// import { User } from "@clerk/nextjs/server";
 import DropDown from "./DropDown";
 import Image from "next/image";
 import Logo from '@/public/Assets/Logo.png'
+import { useAuth } from "@/context/auth";
 
 type Props = {
   activeItem: number;
-  user: User | undefined;
-  isSellerExist: boolean | undefined;
+  user: [] | undefined;
 };
 
-const Header = ({ user, activeItem, isSellerExist }: Props) => {
+
+const Header = ({ user, activeItem}: Props) => {
   const [active, setactive] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeProfile, setActiveProfile] = useState(false);
+
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -71,11 +73,10 @@ const Header = ({ user, activeItem, isSellerExist }: Props) => {
                 user={user}
                 setOpen={setOpen}
                 handleProfile={handleProfile}
-                isSellerExist={isSellerExist}
               />
             </div>
           ) : (
-            <Link href="/sign-in">
+            <Link href="/login">
               <CgProfile className="text-[30px] cursor-pointer" />
             </Link>
           )}
@@ -84,7 +85,6 @@ const Header = ({ user, activeItem, isSellerExist }: Props) => {
       {activeProfile && (
         <div className="w-full fixed h-screen overflow-hidden flex justify-center items-center top-0 left-0 bg-[#00000068] !z-[99999]">
           <div className="w-min relative h-[90vh] overflow-y-scroll bg-white rounded-xl shadow">
-            <UserProfile />
             <RxCross1
               className="absolute text-black text-2xl top-10 right-10 cursor-pointer"
               onClick={handleProfile}
@@ -131,7 +131,6 @@ const Header = ({ user, activeItem, isSellerExist }: Props) => {
                     user={user}
                     setOpen={setOpen}
                     handleProfile={handleProfile}
-                    isSellerExist={isSellerExist}
                   />
                 )}
               </div>

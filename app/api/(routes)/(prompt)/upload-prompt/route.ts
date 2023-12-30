@@ -1,12 +1,10 @@
 import cloudinary from "@/lib/cloudinary";
 import prisma from "@/lib/prismaDb";
-import { User, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    const user: User | null = await currentUser();
 
     if (!data.images) {
       data.images = [];
@@ -54,7 +52,7 @@ export async function POST(req: NextRequest) {
     const promptUrlData = data.promptUrl;
     delete data.promptUrl;
 
-    const sellerId = user?.id;
+    const sellerId = data.sellerId;
 
     const newPrompt = await prisma.prompts.create({
       data: {

@@ -11,7 +11,7 @@ const About = (props: Props) => {
   const router = useRouter();
 
   return (
-    <div className="w-full bg-contain bg-[url(https://i.pinimg.com/564x/a3/88/d3/a388d3f72859a0357a3468150c885eae.jpg)] relative grid md:grid-cols-2 md:py-36">
+    <div className="w-full  bg-contain bg-[url(https://i.pinimg.com/564x/a3/88/d3/a388d3f72859a0357a3468150c885eae.jpg)] relative grid md:grid-cols-2 md:py-36">
       <div className="col-span-1 w-full md:w-[100%] flex justify-center items-center flex-col  md:px-[unset]">
         <h5 className={`${styles.heading} text-center mb-5 !leading-[90px]`}>
           Crafting Tomorrow&apos;s Images With Artificial Intelligence

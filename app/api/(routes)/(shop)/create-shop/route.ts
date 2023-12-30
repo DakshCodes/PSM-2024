@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         status: 400,
       });
     }
-
+   
     const shop = await prisma.shops.create({ data });
 
     return NextResponse.json(shop);

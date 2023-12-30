@@ -10,7 +10,6 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.26.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.12",
@@ -19,10 +18,12 @@
     "@prisma/client": "^5.3.1",
     "@stripe/react-stripe-js": "^2.3.1",
     "@stripe/stripe-js": "^2.1.9",
-    "axios": "^1.5.1",
+    "axios": "^1.6.2",
+    "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.0",
     "framer-motion": "^10.16.4",
     "gsap": "^3.12.2",
+    "jsonwebtoken": "^9.0.2",
     "next": "^14.0.1",
     "next-themes": "^0.2.1",
     "react": "latest",
@@ -35,6 +36,8 @@
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",

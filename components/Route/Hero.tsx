@@ -71,8 +71,8 @@ const Hero = (props: Props) => {
             height={2}
           />
         </div>
-        <div className="w-[100vw]  mb-5 md:mb-20 relative">
-          <div className="rotate-[-4deg] z-[0] mt-10 md:mt-[7rem]">
+        <div className="w-[100vw] overflow-hidden  mb-5 md:mb-20 relative">
+          <div className="overflow-hidden rotate-[-4deg] z-[0] mt-10 md:mt-[7rem]">
             <MarQuee>
               {rowOneImages.map((i, index) => (
                 <Image
