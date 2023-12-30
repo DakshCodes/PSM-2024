@@ -27,8 +27,8 @@ const Page = () => {
             };
             setLoading(true);
             const res = await axios.post('/api/login', data);
-           
-         
+
+
             if (res && res.data.success) {
                 setLoading(true);
                 toast.success("Login Successfully");
@@ -89,7 +89,7 @@ const Page = () => {
                             className="text-[#000] bg-[#fff] pl-2 outline-none border-none" type="text" placeholder="Password" />
                     </div>
                     <button type="submit" className="block w-full bg-gradient-to-r from-green-400 to-purple-500 mt-4 mb-4 py-2 rounded-2xl text-white font-semibold mb-2">Login</button>
-                    <span className="text-sm ml-2 text-[#000] cursor-pointer">Don't Have an Account <Link href={'/register'} className="text-lg font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500">Register</Link></span>
+                    <span className="text-sm ml-2 text-[#000] cursor-pointer">Don&apos;t Have an Account <Link href={'/register'} className="text-lg font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500">Register</Link></span>
                 </form>
             </div>
         </div>

@@ -12,13 +12,13 @@ import Partners from "@/components/Route/Partners";
 import SellersBanner from "@/components/Shop/SellersBanner";
 import Footer from "@/components/Layout/Footer";
 import { Divider } from "@nextui-org/react";
-import { useAuth } from "@/context/auth";
+import { useAuth } from "../../context/auth";
 import Loader from "@/components/loader/Loader";
-import { useLoading } from "@/context/Loading";
+import { useLoading } from "../../context/Loading";
 
 
 const Page = () => {
-  const [loading, setLoading] = useLoading();
+  const [loading] = useLoading();
   const [auth, setAuth] = useAuth();
 
 
