@@ -22,7 +22,6 @@ const Page = () => {
   const [auth, setAuth] = useAuth();
 
 
-
   return (
     <>
       {

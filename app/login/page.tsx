@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 
 
-const page = () => {
+const Page = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [auth, setAuth] = useAuth();
@@ -98,4 +98,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

@@ -62,7 +62,7 @@ const Page = () => {
         <div className="h-screen md:flex ">
             <div className="flex md:w-full h-full justify-center py-10 items-center bg-[#fff]">
                 <form className="" onSubmit={handleRegister}>
-                    <h1 className="text-gray-800 font-bold text-3xl mb-1">Hello Again!</h1>
+                    <h1 className="text-gray-800 font-bold text-3xl mb-1">&apos;Hello&apos; Again!</h1>
                     <p className="text-xl font-normal text-gray-600 mb-7">Welcome to Ignition</p>
                     <div className="flex items-center  border-2 py-2 px-3 rounded-2xl mb-5">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
